@@ -32,7 +32,7 @@ export class PracticeAudio {
         noiseSuppression: false,
         autoGainControl: false,
       } });
-      await this.context.audioWorklet.addModule('/hit-worklet.js');
+      await this.context.audioWorklet.addModule(`${import.meta.env.BASE_URL}hit-worklet.js`);
       this.source = this.context.createMediaStreamSource(this.stream);
       this.worklet = new AudioWorkletNode(this.context, 'hit-processor');
       this.worklet.port.onmessage = ({ data }) => {

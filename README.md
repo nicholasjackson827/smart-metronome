@@ -16,7 +16,9 @@ npm run build
 npm run preview
 ```
 
-Deploy the contents of `dist/` to a static **HTTPS** host at the domain root. A plain HTTP LAN URL can display the interface on your phone but cannot enable its microphone. Both [microphone capture](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia) and [AudioWorklet](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet) require a secure context; localhost is allowed for desktop development.
+Deploy the contents of `dist/` to any static **HTTPS** host. To serve from a subpath, build with `BASE_PATH=/your-path/ npm run build`.
+
+Pushes to `main` deploy automatically to GitHub Pages via `.github/workflows/pages.yml`, which runs the unit tests and builds with the repository's Pages base path. A plain HTTP LAN URL can display the interface on your phone but cannot enable its microphone. Both [microphone capture](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia) and [AudioWorklet](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet) require a secure context; localhost is allowed for desktop development.
 
 On iPhone, open the HTTPS address in Safari → Share → Add to Home Screen. The production service worker caches the entire app after the initial online visit, including detector modules and icons. Close all app windows and reopen to activate an updated version. [WebKit's Home Screen app guidance](https://webkit.org/blog/17333/webkit-features-in-safari-26-0/) explains installation behavior.
 

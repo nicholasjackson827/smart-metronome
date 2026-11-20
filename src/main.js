@@ -223,4 +223,4 @@ setInterval(() => { if (running && lastHitAt && performance.now() - lastHitAt > 
 renderTempo(); renderBeats();
 $('route').value = state.route;
 $('route').dispatchEvent(new Event('change'));
-if (import.meta.env.PROD && 'serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(() => notice('Offline setup failed. You can still practice while online.'));
+if (import.meta.env.PROD && 'serviceWorker' in navigator) navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`).catch(() => notice('Offline setup failed. You can still practice while online.'));

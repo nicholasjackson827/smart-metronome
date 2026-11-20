@@ -9,7 +9,8 @@ const paths = (await files('dist')).filter(path => !path.endsWith('/sw.js'));
 const hash = createHash('sha256');
 for (const path of paths) hash.update(await readFile(path));
 const version = hash.digest('hex').slice(0, 12);
-const urls = ['/', ...paths.map(path => path.slice(4))];
+// Relative to the worker's location, so the cache works at the domain root or under a subpath.
+const urls = ['./', ...paths.map(path => path.slice(5))];
 await writeFile('dist/sw.js', `const CACHE = 'pocket-time-${version}';
 const ASSETS = ${JSON.stringify(urls)};
 self.addEventListener('install', event => event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS))));
@@ -22,7 +23,7 @@ self.addEventListener('fetch', event => {
     const hit = await cache.match(event.request, { ignoreVary: true });
     if (hit) return hit;
     try { return await fetch(event.request); }
-    catch (error) { if (event.request.mode === 'navigate') return cache.match('/'); throw error; }
+    catch (error) { if (event.request.mode === 'navigate') return cache.match('./'); throw error; }
   }));
 });
 `);
