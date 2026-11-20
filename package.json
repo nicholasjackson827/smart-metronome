@@ -1,0 +1,14 @@
+{
+  "name": "pocket-time",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build && node scripts/build-sw.js",
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "node --test tests/*.test.js",
+    "test:browser": "playwright test"
+  },
+  "devDependencies": { "vite": "^7.1.0", "@playwright/test": "^1.55.0" }
+}
